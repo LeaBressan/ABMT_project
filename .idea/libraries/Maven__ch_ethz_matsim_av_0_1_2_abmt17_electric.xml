@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: ch.ethz.matsim:av:0.1.2-abmt17-electric">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/ch/ethz/matsim/av/0.1.2-abmt17-electric/av-0.1.2-abmt17-electric.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/ch/ethz/matsim/av/0.1.2-abmt17-electric/av-0.1.2-abmt17-electric-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/ch/ethz/matsim/av/0.1.2-abmt17-electric/av-0.1.2-abmt17-electric-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
