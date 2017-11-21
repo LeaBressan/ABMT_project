@@ -36,5 +36,10 @@
 			<version>4.11</version>
 			<scope>test</scope>
 		</dependency>
+			<dependency>
+				<groupId>ch.ethz.matsim</groupId>
+				<artifactId>av</artifactId>
+				<version>0.1.2-abmt17-electric</version>
+			</dependency>
 	</dependencies>
 </project>

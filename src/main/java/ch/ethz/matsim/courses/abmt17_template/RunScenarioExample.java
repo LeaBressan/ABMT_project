@@ -1,6 +1,17 @@
 package ch.ethz.matsim.courses.abmt17_template;
 
+import ch.ethz.matsim.av.electric.NewRechargingModule;
+import ch.ethz.matsim.av.electric.RechargingConfig;
+import ch.ethz.matsim.av.electric.RechargingModule;
+import ch.ethz.matsim.av.electric.calculators.StaticChargeCalculatorConfig;
+import ch.ethz.matsim.av.electric.calculators.StaticChargeCalculatorModule;
+import ch.ethz.matsim.av.framework.AVConfigGroup;
+import ch.ethz.matsim.av.framework.AVModule;
+import ch.ethz.matsim.av.framework.AVQSimProvider;
 import org.matsim.api.core.v01.Scenario;
+import org.matsim.contrib.dvrp.run.DvrpConfigGroup;
+import org.matsim.contrib.dvrp.trafficmonitoring.DvrpTravelTimeModule;
+import org.matsim.contrib.dynagent.run.DynQSimModule;
 import org.matsim.core.config.Config;
 import org.matsim.core.config.ConfigUtils;
 import org.matsim.core.controler.Controler;
@@ -30,15 +41,22 @@ import ch.ethz.matsim.baseline_scenario.analysis.simulation.ModeShareListenerMod
  */
 public class RunScenarioExample {
 	static public void main(String[] args) {
-		Config config = ConfigUtils.loadConfig(args[0]); // Load the config file (command line argument)
+		Config config = ConfigUtils.loadConfig(args[0],new AVConfigGroup(), new DvrpConfigGroup(),new RechargingConfig(), new StaticChargeCalculatorConfig()); // Load the config file (command line argument)
 
 		Scenario scenario = ScenarioUtils.loadScenario(config); // Load scenario
 		Controler controler = new Controler(scenario); // Set up simulation controller
 
 		// Some additional modules to create a more realistic simulation
-		controler.addOverridingModule(new ABMTScoringModule()); // Required if scoring of activities is used
+
 		controler.addOverridingModule(new ABMTPTModule()); // More realistic "teleportation" of public transport trips
 		controler.addOverridingModule(new ModeShareListenerModule()); // Writes correct mode shares in every iteration
+		controler.addOverridingModule(new DvrpTravelTimeModule());
+		controler.addOverridingModule(new DynQSimModule<>(AVQSimProvider.class));
+		controler.addOverridingModule(new AVModule());
+		controler.addOverridingModule(new NewRechargingModule());
+		controler.addOverridingModule(new ABMTScoringModule()); // Required if scoring of activities is used
+		controler.addOverridingModule(new StaticChargeCalculatorModule());
+
 
 		controler.run();
 	}
